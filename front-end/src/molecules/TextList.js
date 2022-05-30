@@ -4,9 +4,9 @@ import PropTypes from "prop-types";
 
 import TextBox from "../atoms/TextBox/TextBox";
 import TextBoxAdd from "../atoms/TextBox/TextBoxAdd";
+import { updateWorkspace } from "../util/requests";
 import "./TextList.css";
 
-import { updateWorkspace } from "../util/requests";
 
 function TextList({ textList, workspaceId }) {
   const [ textItems, setTextItems ] = useState(null);
@@ -24,8 +24,8 @@ function TextList({ textList, workspaceId }) {
     updateCurrentWorkspace(newTextItems);
   };
 
-  const updateCurrentWorkspace = async (textItems) => {
-    let textIds = textItems.map( textItem => textItem._id );
+  const updateCurrentWorkspace = async (items) => {
+    let textIds = items.map( item => item._id );
     let updatedWorkspace = {
       texts: textIds,
       updateDate: Date.now()

@@ -2,7 +2,7 @@ const router = require('express').Router();
 const Account = require('./models/accounts.model');
 let Workspace = require('./models/workspaces.model');
 
-router.route('/').get((req, res) => {
+router.route('/').get((_req, res) => {
     Workspace.find()
         .then(workspaces => res.json(workspaces))
         .catch(err => res.status(400).json('Error: ' + err));
@@ -27,14 +27,8 @@ router.route('/byCollaborator/:email').get((req, res) => {
 });
 
 router.route('/add').post((req, res) => {
-    const name = req.body.name;
-    const owner = req.body.owner;
-    const collaborators = req.body.collaborators;
-    const isPublic = req.body.isPublic;
-    const texts = req.body.texts;
-    const creationDate = req.body.creationDate;
-    const updateDate = req.body.updateDate;
-    const deleteDate = req.body.deleteDate;
+
+    const {name, owner, collaborators, isPublic, texts, creationDate, updateDate, deleteDate} = req.body;
 
     const newWorkspace = new Workspace({ name, owner, collaborators, isPublic, texts, creationDate, updateDate, deleteDate });
 

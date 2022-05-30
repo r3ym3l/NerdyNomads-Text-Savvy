@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable react/display-name */
 /* global chrome */
 import React from "react";
 import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
@@ -19,13 +20,11 @@ jest.mock("axios");
 jest.mock("@auth0/auth0-react"); 
 
 jest.mock("../molecules/TextList", () => {
-  const TextList = () => <div />;
-  return TextList;
+  return () => <div/>;
 });
 
 jest.mock("../organisms/Sidebar", () => {
-  const Sidebar = () => <div />;
-  return Sidebar;
+  return () => <div/>;
 });
 
 const whenStable = async () => {
@@ -96,21 +95,21 @@ test("Auth0's loginWithRedirect function should be called if no user is logged i
     loginWithRedirect: jest.fn()
   });
 
-  let wrapper = mount(<App />);
+  mount(<App />);
   expect(useAuth0().loginWithRedirect).toBeCalledTimes(1);
 });
 
-// test("A new account should be added to the database if the user is new.", async () => { 
-//   useAuth0.mockReturnValue({
-//     isAuthenticated: true,
-//     user: auth0User,
-//     getAccessTokenSilently: jest.fn().mockResolvedValueOnce()
-//   });
+test("A new account should be added to the database if the user is new.", async () => { 
+  useAuth0.mockReturnValue({
+    isAuthenticated: true,
+    user: auth0User,
+    getAccessTokenSilently: jest.fn().mockResolvedValueOnce()
+  });
 
-//   let wrapper = mount(<App />);
-//   await whenStable();
-//   expect(axios.get).toBeCalled();
+  let wrapper = mount(<App />);
+  await whenStable();
+  expect(axios.get).toBeCalled();
 
-//   wrapper.update();
-//   expect(axios.post).toBeCalledTimes(1);
-// });
+  wrapper.update();
+  expect(axios.post).toBeCalledTimes(1);
+});

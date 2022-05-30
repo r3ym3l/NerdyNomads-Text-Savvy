@@ -51,7 +51,7 @@ function TextBoxAdd({ workspaceId, onSubmit }) {
     }, 130);
   };
 
-  editCard= <div className="TextBoxEdit">
+  editCard = <div className="TextBoxEdit">
     <div className="edit-header" onClick={handleOnTextCancel}>
       <div className="delete-icon">
         <ExitIcon/>
@@ -62,9 +62,9 @@ function TextBoxAdd({ workspaceId, onSubmit }) {
         className="text-area" 
         type="text" 
         placeholder="Enter text..."
-        value = {textAreaVal}
+        value={textAreaVal}
         onChange={
-          (event)=>{
+          (event) => {
             setTextAreaVal(() =>
               event.target.value
             );
@@ -80,9 +80,9 @@ function TextBoxAdd({ workspaceId, onSubmit }) {
         <input 
           className="source-field" 
           type="text" 
-          value = {sourceFieldVal}
+          value={sourceFieldVal}
           onChange={
-            (event)=>{
+            (event) => {
               setSourceFieldVal(() =>
                 event.target.value
               );

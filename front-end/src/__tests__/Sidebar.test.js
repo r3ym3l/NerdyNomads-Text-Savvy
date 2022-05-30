@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable react/display-name */
 import React from "react";
 import { shallow } from "enzyme";
 
@@ -9,8 +10,7 @@ import SidebarWorkspace from "../molecules/SidebarWorkspace";
 
 jest.mock("@auth0/auth0-react"); 
 jest.mock("../molecules/SidebarWorkspace", () => {
-  const SidebarWorkspace = () => <div />;
-  return SidebarWorkspace;
+  return () => <div />;
 });
 
 beforeEach(() => {
@@ -50,21 +50,9 @@ test("Should display the logout button.", () => {
   let logoutDiv = wrapper.find(".SideBar-logout");
   expect(logoutDiv.length).toEqual(1);
 
-  let logoutText = wrapper.find(".SideBar-option-text").at(1);
+  let logoutText = wrapper.find(".SideBar-option-text").at(0);
   expect(logoutText.length).toEqual(1);
   expect(logoutText.text()).toEqual("Logout");
-});
-
-test("Should display the 'Manage Account' button.", () => {
-  const mockFunc = () => null;
-  let wrapper = shallow(<Sidebar onClickWorkspace={mockFunc} accountId=""/>);
-
-  let manageAccDiv = wrapper.find(".SideBar-manageacc");
-  expect(manageAccDiv.length).toEqual(1);
-
-  let manageAccText = wrapper.find(".SideBar-option-text").first();
-  expect(manageAccText.length).toEqual(1);
-  expect(manageAccText.text()).toEqual("Manage Account");
 });
 
 test("Should display the SidebarWorkspace component.", () => {

@@ -6,7 +6,7 @@ let Account = require('./models/accounts.model');
  * 
  * Get all of the accounts.
  */
-router.route('/').get((req, res) => {
+router.route('/').get((_req, res) => {
     Account.find()
         .then(accounts => res.json(accounts))
         .catch(err => res.status(400).json('Error: ' + err));
@@ -43,9 +43,7 @@ router.route('/byWorkspace/:workspaceId').get((req, res) => {
  * Create a new account.
  */
 router.route('/add').post((req, res) => {
-    const auth0Id = req.body.auth0Id;
-    const name = req.body.name;
-    const email = req.body.email;
+    const {auth0Id, name, email} = req.body;
     const workspaces = [];
 
     const newAccount = new Account({ auth0Id, name, email, workspaces });
